@@ -1,5 +1,4 @@
 using BusinessLayer;
-using Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -8,11 +7,12 @@ using ApplicationException = Common.ApplicationException;
 
 namespace MoneyCalculatorUnitTests
 {
+    /// <summary>
+    /// Unit tests for testing the Max() from the MoneyCalculator class
+    /// </summary>
     [TestClass]
     public class BusinessMoneyCalculatorMaxUnitTests
     {
-        
-
         [TestInitialize]
         public virtual void Initialize()
         {
@@ -27,7 +27,7 @@ namespace MoneyCalculatorUnitTests
             _MockIMoneyGBP3 = new Mock<IMoney>();
             _MockIMoneyGBP3.Setup(_ => _.Amount).Returns(10.100m);
             _MockIMoneyGBP3.Setup(_ => _.Currency).Returns("GBP");
-            
+
             // Negative amount test data
             _MockIMoneyNegativeAmountGBP1 = new Mock<IMoney>();
             _MockIMoneyNegativeAmountGBP1.Setup(_ => _.Amount).Returns(-10.100m);
@@ -171,7 +171,7 @@ namespace MoneyCalculatorUnitTests
         public void TestMaxEmptyCurrencyField()
         {
             // There are 2 IMoney objects added with currencies GBP and EUR
-            var monies = new List<IMoney> { _MockIMoneyGBP1.Object,  };
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, };
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or white space");
         }
 

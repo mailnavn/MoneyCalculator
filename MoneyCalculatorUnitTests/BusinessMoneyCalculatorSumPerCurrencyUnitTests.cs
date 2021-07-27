@@ -1,8 +1,5 @@
 using BusinessLayer;
-using Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ApplicationException = Common.ApplicationException;
@@ -29,7 +26,7 @@ namespace MoneyCalculatorUnitTests
         [TestMethod]
         public void TestSumPerCurrencyEmptyMonies()
         {
-            var monies = new List<IMoney> {};
+            var monies = new List<IMoney> { };
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
         }
 

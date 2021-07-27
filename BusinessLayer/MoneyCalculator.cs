@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ApplicationException = Common.ApplicationException;
 
 namespace BusinessLayer
@@ -46,6 +44,7 @@ namespace BusinessLayer
             return result;
         }
 
+        #region private methods
 
         /// <summary>
         /// Validates if the monies is null or empty
@@ -67,5 +66,7 @@ namespace BusinessLayer
             if (monies.Any(x => string.IsNullOrWhiteSpace(x.Currency)))
                 throw new ApplicationException($"The currency cannot be empty or white space", ProductErrorCode.CURRENCYEMPTYORNULL);
         }
+
+        #endregion
     }
 }
