@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyCalculator", "MoneyCalculator\MoneyCalculator.csproj", "{537F7F73-6472-4B7C-8C4B-76EFB5BD0669}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{783314F9-8FFE-4CDC-BCD9-39BAE9B1607F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{D9CB7080-10D3-496A-8C68-C473520A58E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyCalculatorUnitTests", "MoneyCalculatorUnitTests\MoneyCalculatorUnitTests.csproj", "{489F9FF3-9CEA-487C-8834-D1EC13263BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{4138CD3A-F8F4-43D5-812F-472899093E89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +29,10 @@ Global
 		{489F9FF3-9CEA-487C-8834-D1EC13263BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{489F9FF3-9CEA-487C-8834-D1EC13263BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{489F9FF3-9CEA-487C-8834-D1EC13263BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4138CD3A-F8F4-43D5-812F-472899093E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4138CD3A-F8F4-43D5-812F-472899093E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4138CD3A-F8F4-43D5-812F-472899093E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4138CD3A-F8F4-43D5-812F-472899093E89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

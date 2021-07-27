@@ -1,9 +1,11 @@
+using BusinessLayer;
+using Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MoneyCalculatorUnitTests
 {
     [TestClass]
-    public class BusinessUnitTests
+    public class BusinessMoneyCalculatorUnitTests
     {
 
 
@@ -21,8 +23,10 @@ namespace MoneyCalculatorUnitTests
 
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestMaxNullMonies()
         {
+            MoneyCalculator moneyCalculator = new();
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be null");
         }
     }
 }
