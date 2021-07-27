@@ -20,7 +20,6 @@ namespace MoneyCalculatorUnitTests
         public void TestSumPerCurrencyNullMonies()
         {
             var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyGBP2.Object, _MockIMoneyEUR1.Object, _MockIMoneyEUR2.Object, };
-            var result = moneyCalculator.SumPerCurrency(null);
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
         }
 
@@ -31,7 +30,6 @@ namespace MoneyCalculatorUnitTests
         public void TestSumPerCurrencyEmptyMonies()
         {
             var monies = new List<IMoney> {};
-            var result = moneyCalculator.SumPerCurrency(null);
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
         }
 
@@ -45,10 +43,10 @@ namespace MoneyCalculatorUnitTests
             var result = moneyCalculator.SumPerCurrency(monies);
 
             // Verify for GBP , sum = 100.100 + 50.100
-            Assert.AreEqual(150.200, result.FirstOrDefault(_ => _.Currency.Contains("GBP")).Amount);
+            Assert.AreEqual(150.200m, result.FirstOrDefault(_ => _.Currency.Contains("GBP")).Amount);
 
             // Verify for EUR , sum = 100.100 + 300.100
-            Assert.AreEqual(400.200, result.FirstOrDefault(_ => _.Currency.Contains("GBP")).Amount);
+            Assert.AreEqual(400.200m, result.FirstOrDefault(_ => _.Currency.Contains("EUR")).Amount);
 
             // verify that the are only 2 monies in the list
             Assert.AreEqual(2, result.Count());
@@ -66,7 +64,7 @@ namespace MoneyCalculatorUnitTests
             var result = moneyCalculator.SumPerCurrency(monies);
 
             // Verify for GBP , sum = 100.100 + 50.100
-            Assert.AreEqual(150.200, result.FirstOrDefault(_ => _.Currency.Contains("GBP")).Amount);
+            Assert.AreEqual(150.200m, result.FirstOrDefault(_ => _.Currency.Contains("GBP")).Amount);
 
             // verify that the are only 2 monies in the list
             Assert.AreEqual(1, result.Count());

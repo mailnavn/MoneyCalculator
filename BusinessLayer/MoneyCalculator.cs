@@ -21,11 +21,12 @@ namespace BusinessLayer
         {
             ValidateNullMonies(monies);
 
+            ValidateEmptyCurrencies(monies);
+
             // If monies are in different currencies, throw argument exception
             if (monies.GroupBy(money => money.Currency).Count() > 1)
                 throw new ArgumentException($"All monies are not in the same currency.");
 
-            ValidateEmptyCurrencies(monies);
             var result = monies.FirstOrDefault(money => money.Currency == monies.Max(x => x.Currency));
             return result;
         }
@@ -38,8 +39,13 @@ namespace BusinessLayer
         /// <example>{GBP10, USD20, EUR50} => {GBP10, USD20, EUR50}</example>
         public IEnumerable<IMoney> SumPerCurrency(IEnumerable<IMoney> monies)
         {
-            return new List<IMoney>();
+            ValidateNullMonies(monies);
+            ValidateEmptyCurrencies(monies);
+
+            var result = monies.GroupBy(money => money.Currency).Select(z => new Money(z.Key, z.Sum(x => x.Amount))).ToList();
+            return result;
         }
+
 
         /// <summary>
         /// Validates if the monies is null or empty
