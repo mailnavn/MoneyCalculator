@@ -2,7 +2,9 @@ using BusinessLayer;
 using Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.Collections.Generic;
+using ApplicationException = Common.ApplicationException;
 
 namespace MoneyCalculatorUnitTests
 {
@@ -36,6 +38,10 @@ namespace MoneyCalculatorUnitTests
             _MockIMoneyNegativeAmountGBP2.Setup(_ => _.Amount).Returns(-5.100m);
             _MockIMoneyNegativeAmountGBP2.Setup(_ => _.Currency).Returns("GBP");
 
+            //Euro currenty
+            _MockIMoneyEUR1 = new Mock<IMoney>();
+            _MockIMoneyEUR1.Setup(_ => _.Amount).Returns(100.100m);
+            _MockIMoneyEUR1.Setup(_ => _.Currency).Returns("EUR");
 
         }
 
@@ -134,6 +140,32 @@ namespace MoneyCalculatorUnitTests
         }
 
 
+        /// <summary>
+        /// Test by providing different currencies and ensure that argument exception is thrown
+        /// </summary>
+        [TestMethod]
+        public void TestMaxDifferentCurrencies()
+        {
+            // There are 2 IMoney objects added with currencies GBP and EUR
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEUR1.Object };
+            Assert.ThrowsException<ArgumentException>(() => { moneyCalculator.Max(null); }, "The monies cannot be in different currencies");
+        }
+
+
+        /// <summary>
+        /// Test by providing currency empty or white space and ensure exception is thrown
+        /// </summary>
+        [TestMethod]
+        public void TestMaxEmptyCurrencyField()
+        {
+            // There are 2 IMoney objects added with currencies GBP and EUR
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEUR1.Object };
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or blank");
+        }
+
+
+
+
 
         #region private properties
 
@@ -142,6 +174,10 @@ namespace MoneyCalculatorUnitTests
         private Mock<IMoney> _MockIMoneyGBP3;
         private Mock<IMoney> _MockIMoneyNegativeAmountGBP1;
         private Mock<IMoney> _MockIMoneyNegativeAmountGBP2;
+
+        private Mock<IMoney> _MockIMoneyEUR1;
+
+
 
         private MoneyCalculator moneyCalculator { get; set; }
         #endregion
