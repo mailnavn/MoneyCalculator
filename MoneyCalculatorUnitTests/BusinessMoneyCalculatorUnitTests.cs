@@ -43,6 +43,17 @@ namespace MoneyCalculatorUnitTests
             _MockIMoneyEUR1.Setup(_ => _.Amount).Returns(100.100m);
             _MockIMoneyEUR1.Setup(_ => _.Currency).Returns("EUR");
 
+
+            //Empty currenty
+            _MockIMoneyEmptyCurrency = new Mock<IMoney>();
+            _MockIMoneyEmptyCurrency.Setup(_ => _.Amount).Returns(100.100m);
+            _MockIMoneyEmptyCurrency.Setup(_ => _.Currency).Returns(String.Empty);
+
+            //WhiteSpace currenty
+            _MockIMoneyWhiteSpaceCurrency = new Mock<IMoney>();
+            _MockIMoneyWhiteSpaceCurrency.Setup(_ => _.Amount).Returns(100.100m);
+            _MockIMoneyWhiteSpaceCurrency.Setup(_ => _.Currency).Returns("   ");
+
         }
 
         [TestCleanup]
@@ -141,28 +152,39 @@ namespace MoneyCalculatorUnitTests
 
 
         /// <summary>
-        /// Test by providing different currencies and ensure that argument exception is thrown
+        /// Test by providing different currencies as monies and ensure that argument exception is thrown
         /// </summary>
         [TestMethod]
         public void TestMaxDifferentCurrencies()
         {
             // There are 2 IMoney objects added with currencies GBP and EUR
             var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEUR1.Object };
-            Assert.ThrowsException<ArgumentException>(() => { moneyCalculator.Max(null); }, "The monies cannot be in different currencies");
+            Assert.ThrowsException<ArgumentException>(() => { moneyCalculator.Max(monies); }, "The monies cannot be in different currencies");
         }
 
 
         /// <summary>
-        /// Test by providing currency empty or white space and ensure exception is thrown
+        /// Test by providing currency as empty and ensure exception is thrown
         /// </summary>
         [TestMethod]
         public void TestMaxEmptyCurrencyField()
         {
             // There are 2 IMoney objects added with currencies GBP and EUR
-            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEUR1.Object };
-            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or blank");
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object,  };
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or white space");
         }
 
+
+        /// <summary>
+        /// Test by providing currency as white space and ensure exception is thrown
+        /// </summary>
+        [TestMethod]
+        public void TestMaxWhiteSpaceCurrencyField()
+        {
+            // There are 2 IMoney objects added with currencies GBP and EUR
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, };
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or white space");
+        }
 
 
 
@@ -177,6 +199,8 @@ namespace MoneyCalculatorUnitTests
 
         private Mock<IMoney> _MockIMoneyEUR1;
 
+        private Mock<IMoney> _MockIMoneyEmptyCurrency;
+        private Mock<IMoney> _MockIMoneyWhiteSpaceCurrency;
 
 
         private MoneyCalculator moneyCalculator { get; set; }
