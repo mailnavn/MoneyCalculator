@@ -14,6 +14,30 @@ namespace MoneyCalculatorUnitTests
     {
 
         /// <summary>
+        /// Test by passing in null for monies object in the SumPerCurrency()
+        /// </summary>
+        [TestMethod]
+        public void TestSumPerCurrencyNullMonies()
+        {
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyGBP2.Object, _MockIMoneyEUR1.Object, _MockIMoneyEUR2.Object, };
+            var result = moneyCalculator.SumPerCurrency(null);
+
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
+        }
+
+        /// <summary>
+        /// Test by passing in empty monies for the SumPerCurrency()
+        /// </summary>
+        [TestMethod]
+        public void TestSumPerCurrencyEmptyMonies()
+        {
+            var monies = new List<IMoney> {};
+            var result = moneyCalculator.SumPerCurrency(null);
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
+        }
+
+
+        /// <summary>
         /// Test for valid input containing GBP and EUR monies
         /// </summary>
         [TestMethod]

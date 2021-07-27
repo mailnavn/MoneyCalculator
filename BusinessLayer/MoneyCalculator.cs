@@ -19,8 +19,7 @@ namespace BusinessLayer
         /// <example>{GBP10, GBP20, EUR50} => exception</example>
         public IMoney Max(IEnumerable<IMoney> monies)
         {
-            if (monies == null || monies.Count() == 0)
-                throw new ApplicationException($"The monies cannot be empty or null", ProductErrorCode.MONEYNULL);
+            ValidateNullMonies(monies);
 
             // If monies are in different currencies, throw argument exception
             if (monies.GroupBy(money => money.Currency).Count() > 1)
@@ -43,6 +42,20 @@ namespace BusinessLayer
 
             return new List<IMoney>();
         }
+
+
+        /// <summary>
+        /// Validates if the monies is null or empty
+        /// </summary>
+        /// <param name="monies"></param>
+        private void ValidateNullMonies(IEnumerable<IMoney> monies)
+        {
+
+            if (monies == null || monies.Count() == 0)
+                throw new ApplicationException($"The monies cannot be empty or null", ProductErrorCode.MONEYNULL);
+        }
+
+
 
         /// <summary>
         /// Valiate for blank or empty currency
