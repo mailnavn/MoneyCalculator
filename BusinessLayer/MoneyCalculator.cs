@@ -26,12 +26,8 @@ namespace BusinessLayer
             if (monies.GroupBy(money => money.Currency).Count() > 1)
                 throw new ArgumentException($"All monies are not in the same currency.");
 
-            // If monies contains currency that is empty or blank, throw application exception
-            if (monies.Any(x => string.IsNullOrWhiteSpace(x.Currency)))
-                throw new ApplicationException($"The currency cannot be empty or white space", ProductErrorCode.CURRENCYEMPTYORNULL);
-
+            ValidateEmptyCurrencies(monies);
             var result = monies.FirstOrDefault(money => money.Currency == monies.Max(x => x.Currency));
-
             return result;
         }
 
@@ -44,7 +40,20 @@ namespace BusinessLayer
         /// <example>{GBP10, USD20, EUR50} => {GBP10, USD20, EUR50}</example>
         public IEnumerable<IMoney> SumPerCurrency(IEnumerable<IMoney> monies)
         {
-            throw new NotImplementedException();
+
+            return new List<IMoney>();
         }
+
+        /// <summary>
+        /// Valiate for blank or empty currency
+        /// </summary>
+        /// <param name="monies"></param>
+        private void ValidateEmptyCurrencies(IEnumerable<IMoney> monies)
+        {
+            // If monies contains currency that is empty or blank, throw application exception
+            if (monies.Any(x => string.IsNullOrWhiteSpace(x.Currency)))
+                throw new ApplicationException($"The currency cannot be empty or white space", ProductErrorCode.CURRENCYEMPTYORNULL);
+        }
+
     }
 }

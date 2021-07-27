@@ -9,12 +9,12 @@ using ApplicationException = Common.ApplicationException;
 namespace MoneyCalculatorUnitTests
 {
     [TestClass]
-    public class BusinessMoneyCalculatorUnitTests
+    public class BusinessMoneyCalculatorMaxUnitTests
     {
         
 
         [TestInitialize]
-        public void Initialize()
+        public virtual void Initialize()
         {
             moneyCalculator = new();
             // Create valid monies in GBP
@@ -38,11 +38,14 @@ namespace MoneyCalculatorUnitTests
             _MockIMoneyNegativeAmountGBP2.Setup(_ => _.Amount).Returns(-5.100m);
             _MockIMoneyNegativeAmountGBP2.Setup(_ => _.Currency).Returns("GBP");
 
-            //Euro currenty
+            //Euro currency 
             _MockIMoneyEUR1 = new Mock<IMoney>();
             _MockIMoneyEUR1.Setup(_ => _.Amount).Returns(100.100m);
             _MockIMoneyEUR1.Setup(_ => _.Currency).Returns("EUR");
 
+            _MockIMoneyEUR2 = new Mock<IMoney>();
+            _MockIMoneyEUR2.Setup(_ => _.Amount).Returns(300.100m);
+            _MockIMoneyEUR2.Setup(_ => _.Currency).Returns("EUR");
 
             //Empty currenty
             _MockIMoneyEmptyCurrency = new Mock<IMoney>();
@@ -57,7 +60,7 @@ namespace MoneyCalculatorUnitTests
         }
 
         [TestCleanup]
-        public void CleanUp()
+        public virtual void CleanUp()
         {
             moneyCalculator = null;
         }
@@ -92,9 +95,7 @@ namespace MoneyCalculatorUnitTests
 
             //verify the currency is GBP
             Assert.AreEqual("GBP", result.Currency);
-
         }
-
 
 
         /// <summary>
@@ -182,28 +183,26 @@ namespace MoneyCalculatorUnitTests
         public void TestMaxWhiteSpaceCurrencyField()
         {
             // There are 2 IMoney objects added with currencies GBP and EUR
-            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, };
-            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The currency cannot be empty or white space");
+            var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEmptyCurrency.Object, };
+            Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(monies); }, "The currency cannot be empty or white space");
         }
-
 
 
 
         #region private properties
 
-        private Mock<IMoney> _MockIMoneyGBP1;
-        private Mock<IMoney> _MockIMoneyGBP2;
-        private Mock<IMoney> _MockIMoneyGBP3;
-        private Mock<IMoney> _MockIMoneyNegativeAmountGBP1;
-        private Mock<IMoney> _MockIMoneyNegativeAmountGBP2;
+        protected Mock<IMoney> _MockIMoneyGBP1;
+        protected Mock<IMoney> _MockIMoneyGBP2;
+        protected Mock<IMoney> _MockIMoneyGBP3;
+        protected Mock<IMoney> _MockIMoneyNegativeAmountGBP1;
+        protected Mock<IMoney> _MockIMoneyNegativeAmountGBP2;
 
-        private Mock<IMoney> _MockIMoneyEUR1;
+        protected Mock<IMoney> _MockIMoneyEUR1;
+        protected Mock<IMoney> _MockIMoneyEUR2;
 
-        private Mock<IMoney> _MockIMoneyEmptyCurrency;
-        private Mock<IMoney> _MockIMoneyWhiteSpaceCurrency;
-
-
-        private MoneyCalculator moneyCalculator { get; set; }
+        protected Mock<IMoney> _MockIMoneyEmptyCurrency;
+        protected Mock<IMoney> _MockIMoneyWhiteSpaceCurrency;
+        protected MoneyCalculator moneyCalculator { get; set; }
         #endregion
 
 
