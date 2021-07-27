@@ -30,7 +30,6 @@ namespace BusinessLayer
             return result;
         }
 
-
         /// <summary>
         /// Return one <see cref="IMoney"/> per currency with the sum of all monies of the same currency.
         /// </summary>
@@ -39,10 +38,8 @@ namespace BusinessLayer
         /// <example>{GBP10, USD20, EUR50} => {GBP10, USD20, EUR50}</example>
         public IEnumerable<IMoney> SumPerCurrency(IEnumerable<IMoney> monies)
         {
-
             return new List<IMoney>();
         }
-
 
         /// <summary>
         /// Validates if the monies is null or empty
@@ -50,12 +47,9 @@ namespace BusinessLayer
         /// <param name="monies"></param>
         private void ValidateNullMonies(IEnumerable<IMoney> monies)
         {
-
             if (monies == null || monies.Count() == 0)
                 throw new ApplicationException($"The monies cannot be empty or null", ProductErrorCode.MONEYNULL);
         }
-
-
 
         /// <summary>
         /// Valiate for blank or empty currency
@@ -67,6 +61,5 @@ namespace BusinessLayer
             if (monies.Any(x => string.IsNullOrWhiteSpace(x.Currency)))
                 throw new ApplicationException($"The currency cannot be empty or white space", ProductErrorCode.CURRENCYEMPTYORNULL);
         }
-
     }
 }
