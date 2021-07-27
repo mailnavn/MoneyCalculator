@@ -21,7 +21,6 @@ namespace MoneyCalculatorUnitTests
         {
             var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyGBP2.Object, _MockIMoneyEUR1.Object, _MockIMoneyEUR2.Object, };
             var result = moneyCalculator.SumPerCurrency(null);
-
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
         }
 
@@ -35,7 +34,6 @@ namespace MoneyCalculatorUnitTests
             var result = moneyCalculator.SumPerCurrency(null);
             Assert.ThrowsException<ApplicationException>(() => { moneyCalculator.Max(null); }, "The monies cannot be empty or null");
         }
-
 
         /// <summary>
         /// Test for valid input containing GBP and EUR monies
