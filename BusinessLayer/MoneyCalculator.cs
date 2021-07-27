@@ -19,10 +19,12 @@ namespace BusinessLayer
         /// <example>{GBP10, GBP20, EUR50} => exception</example>
         public IMoney Max(IEnumerable<IMoney> monies)
         {
-            if (monies == null)
-                throw new ApplicationException($"The monies cannot be null", ProductErrorCode.MONEYNULL);
+            if (monies == null || monies.Count() == 0)
+                throw new ApplicationException($"The monies cannot be empty or null", ProductErrorCode.MONEYNULL);
 
-            throw new NotImplementedException();
+            var result = monies.FirstOrDefault(money => money.Currency == monies.Max(x => x.Currency));
+
+            return result;
         }
 
 

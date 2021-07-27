@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Application exception for throwing custom application exceptions
+    /// </summary>
     public class ApplicationException : Exception
     {
         /// <summary>
