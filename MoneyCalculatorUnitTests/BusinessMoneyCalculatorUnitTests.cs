@@ -159,7 +159,7 @@ namespace MoneyCalculatorUnitTests
         {
             // There are 2 IMoney objects added with currencies GBP and EUR
             var monies = new List<IMoney> { _MockIMoneyGBP1.Object, _MockIMoneyEUR1.Object };
-            Assert.ThrowsException<ArgumentException>(() => { moneyCalculator.Max(monies); }, "The monies cannot be in different currencies");
+            Assert.ThrowsException<ArgumentException>(() => { moneyCalculator.Max(monies); }, "All monies are not in the same currency.");
         }
 
 

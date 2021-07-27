@@ -10,6 +10,7 @@ namespace Common
     {
 
         public static readonly int MONEYNULL = 100;
+        public static readonly int CURRENCYEMPTYORNULL = 101;
 
 
 

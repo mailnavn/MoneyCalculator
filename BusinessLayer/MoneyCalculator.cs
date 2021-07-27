@@ -22,6 +22,14 @@ namespace BusinessLayer
             if (monies == null || monies.Count() == 0)
                 throw new ApplicationException($"The monies cannot be empty or null", ProductErrorCode.MONEYNULL);
 
+            // If monies are in different currencies, throw argument exception
+            if (monies.GroupBy(money => money.Currency).Count() > 1)
+                throw new ArgumentException($"All monies are not in the same currency.");
+
+            // If monies contains currency that is empty or blank, throw application exception
+            if (monies.Any(x => string.IsNullOrWhiteSpace(x.Currency)))
+                throw new ApplicationException($"The currency cannot be empty or white space", ProductErrorCode.CURRENCYEMPTYORNULL);
+
             var result = monies.FirstOrDefault(money => money.Currency == monies.Max(x => x.Currency));
 
             return result;
